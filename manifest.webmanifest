@@ -1,7 +1,7 @@
 {
-  "name": "阪木老大實驗室 v1.1",
+  "name": "阪木老大實驗室 v1.2",
   "short_name": "阪木實驗室",
-  "description": "《寶可夢 心金／魂銀》Gen IV 努力值存檔修改器。存檔只在裝置本機處理。",
+  "description": "《寶可夢 心金／魂銀》Gen IV EV／IV／個性存檔修改器。存檔只在裝置本機處理。",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
