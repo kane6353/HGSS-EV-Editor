@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no" />
+<meta name="theme-color" content="#121826" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="阪木老大實驗室" />
+<title>阪木老大實驗室 v1.3.2</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<style>
+:root{color-scheme:dark;--bg:#0b1020;--panel:#121826;--panel2:#192236;--line:#2b3854;--text:#edf2ff;--muted:#9fb0d0;--accent:#77a7ff;--good:#55d68b;--warn:#ffcb68;--bad:#ff7887}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:linear-gradient(180deg,#0b1020,#101729 44%,#0b1020);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);min-height:100vh}
+.app{max-width:980px;margin:auto;padding:calc(env(safe-area-inset-top) + 14px) 14px calc(env(safe-area-inset-bottom) + 40px)}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
+h1{font-size:21px;margin:0}.sub{color:var(--muted);font-size:12px}
+.badge{padding:5px 9px;border:1px solid var(--line);border-radius:999px;background:#11192a;color:var(--muted);font-size:12px}
+.panel{background:rgba(18,24,38,.92);border:1px solid var(--line);border-radius:16px;padding:14px;margin:12px 0;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.grow{flex:1}.between{justify-content:space-between}
+button,.filebtn,select,input[type=number]{font:inherit;border-radius:12px;border:1px solid var(--line);background:#172137;color:var(--text);min-height:42px}
+button,.filebtn{padding:10px 13px;font-weight:650;cursor:pointer}button:active,.filebtn:active{transform:translateY(1px)}
+button.primary{background:#2b62c9;border-color:#3f76df}button.good{background:#16633e;border-color:#23875a}button.ghost{background:transparent}button.danger{background:#562432;border-color:#7f3345}
+button:disabled{opacity:.4;cursor:not-allowed}.filebtn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center}.filebtn input{position:absolute;inset:0;width:100%;height:100%;opacity:0;font-size:100px;cursor:pointer}
+.status{font-size:13px;color:var(--muted)}.status.good{color:var(--good)}.status.bad{color:var(--bad)}.status.warn{color:var(--warn)}
+.tabs{display:flex;gap:7px;margin-top:10px}.tab{flex:1}.tab.active{background:#2b62c9;border-color:#3f76df}
+.controls{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}.switch{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:12px}
+.card{background:var(--panel2);border:1px solid var(--line);border-radius:15px;padding:13px}.card.dirty{border-color:#4d79cc;box-shadow:0 0 0 1px rgba(92,139,226,.22) inset}
+.monhead{display:flex;justify-content:space-between;align-items:start;gap:10px;margin-bottom:11px}.monname{font-size:17px;font-weight:750}.meta{font-size:12px;color:var(--muted)}
+.evgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.evbox{background:#11192a;border:1px solid #263451;border-radius:12px;padding:8px}.evbox label{display:block;font-size:11px;color:var(--muted);margin-bottom:5px}.evline{display:flex;gap:5px;align-items:center}.evline input{width:100%;min-width:0;padding:7px 8px;text-align:center}.mini{min-height:34px;padding:6px 7px;font-size:11px;border-radius:9px}
+.total{margin-top:9px;padding:8px 10px;border-radius:10px;background:#101725;color:var(--muted);font-size:12px}.total.bad{color:var(--bad);border:1px solid #663344}.total.good{color:var(--good)}
+.presets{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.presets button{font-size:11px;min-height:34px;padding:6px 8px}
+.editsection{margin-top:11px;padding-top:11px;border-top:1px solid #2b3854}.sectiontitle{font-size:12px;font-weight:750;color:#cbd7ef;margin-bottom:7px}.natureline{display:grid;grid-template-columns:minmax(0,1fr);gap:6px}.natureline select{width:100%;padding:8px 10px}.ivgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.ivbox{background:#11192a;border:1px solid #263451;border-radius:12px;padding:8px}.ivbox label{display:block;font-size:11px;color:var(--muted);margin-bottom:5px}.ivline{display:flex;gap:5px;align-items:center}.ivline input{width:100%;min-width:0;padding:7px 8px;text-align:center}.detailbuttons{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:11px}.togglebtn{background:#11192a}.togglebtn.active{background:#2b62c9;border-color:#3f76df}.detailpanel{margin-top:8px;padding-top:10px;border-top:1px solid #2b3854}.nickname{margin-left:6px;color:#ffd27a;font-weight:700}
+.boxbar{display:flex;gap:8px;align-items:center;margin-bottom:10px}.boxbar select{padding:8px 10px;flex:1}
+.empty{padding:26px 12px;text-align:center;color:var(--muted)}
+.log{max-height:230px;overflow:auto;font-size:12px}.logitem{padding:7px 0;border-bottom:1px solid #24314c}.logitem:last-child{border-bottom:0}.time{color:#7083a8;margin-right:6px}
+.note{font-size:12px;color:var(--muted);margin-top:9px}.note strong{color:var(--warn)}
+hr{border:0;border-top:1px solid var(--line);margin:12px 0}
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 22px);transform:translateX(-50%);background:#202c44;border:1px solid #41577e;border-radius:12px;padding:10px 14px;box-shadow:0 8px 25px rgba(0,0,0,.35);display:none;z-index:99;max-width:90%;text-align:center}.toast.show{display:block}
+@media(max-width:520px){.app{padding-left:10px;padding-right:10px}.panel{border-radius:14px;padding:11px}.evgrid,.ivgrid{gap:6px}.evbox,.ivbox{padding:7px}.monname{font-size:16px}header{align-items:flex-start}.badge{display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div><h1>阪木老大實驗室 v1.3.2</h1><div class="sub">魂銀／心金・EV／IV／個性修改器・存檔只在本機瀏覽器處理</div></div><div class="badge">Gen IV · 512 KB</div></header>
+
+<section class="panel">
+  <div class="row">
+    <label class="filebtn primary" id="fileLabel">選擇存檔<input id="file" type="file" accept=".sav,.dsv" aria-label="選擇 HGSS 存檔"></label>
+    <button id="backup" class="ghost" disabled>備份原檔</button>
+    <button id="export" class="good" disabled>匯出修改檔</button>
+  </div>
+  <div id="status" class="status" style="margin-top:9px">請選擇 HeartGold / SoulSilver 的 512 KB `.sav` 或 `.dsv`。</div><div id="envHint" class="note" hidden></div>
+  <div class="note"><strong>建議：</strong>匯回模擬器前先保留原始存檔。EV／IV／個性修改後，隊伍畫面中的戰鬥數值可能要等「升級／存入盒子再取出」才重新計算。</div>
+  <div class="note"><strong>個性：</strong>第四世代的個性由 PID 決定。修改器會更換 PID，並保留 PID 低 8 位與原本閃光狀態，以盡量維持性別與特性槽；特殊活動／固定 PID 寶可夢仍可能因此失去原始合法性。</div>
+</section>
+
+<section id="editorPanel" class="panel" hidden>
+  <div class="controls">
+    <div>
+      <div class="tabs"><button class="tab active" data-tab="party">隊伍</button><button class="tab" data-tab="box">盒子</button></div>
+    </div>
+    <label class="switch"><input id="legal" type="checkbox" checked> 合法限制（單項≤252、總和≤510）</label>
+  </div>
+  <div id="boxbar" class="boxbar" hidden style="margin-top:10px"><select id="boxSelect"></select><span id="boxCount" class="meta"></span></div>
+  <div id="cards" class="cards" style="margin-top:12px"></div>
+</section>
+
+<section id="logPanel" class="panel" hidden>
+  <div class="row between"><strong>本次修改紀錄</strong><button id="clearLog" class="mini ghost">清除紀錄</button></div>
+  <div id="log" class="log"><div class="empty">尚未修改</div></div>
+</section>
+
+<section class="panel">
+  <div class="meta">支援：HGSS 原始 0x80000 存檔、隊伍／18 個盒子、暱稱顯示、EV、IV、個性（Nature）、Gen IV Pokémon 解密／重排／checksum、HGSS general/storage CRC16-CCITT。</div>
+</section>
+</div>
+<div id="toast" class="toast"></div>
+<script>
+'use strict';
+const PART=0x40000, GS=0xF628, SSTART=0xF700, SS=0x12310, PARTY=0x98, PSIZE=236, STORED=136;
+const BP=[0,1,2,3,0,1,3,2,0,2,1,3,0,3,1,2,0,2,3,1,0,3,2,1,1,0,2,3,1,0,3,2,2,0,1,3,3,0,1,2,2,0,3,1,3,0,2,1,1,2,0,3,1,3,0,2,2,1,0,3,3,1,0,2,2,3,0,1,3,2,0,1,1,2,3,0,1,3,2,0,2,1,3,0,3,1,2,0,2,3,1,0,3,2,1,0,0,1,2,3,0,1,3,2,0,2,1,3,0,3,1,2,0,2,3,1,0,3,2,1,1,0,2,3,1,0,3,2];
+const BPI=[0,1,2,4,3,5,6,7,12,18,13,19,8,10,14,20,16,22,9,11,15,21,17,23,0,1,2,4,3,5,6,7];
+const EVDEF=[['HP',0x18],['攻擊',0x19],['防禦',0x1A],['特攻',0x1C],['特防',0x1D],['速度',0x1B]];
+const IVDEF=[['HP',0],['攻擊',5],['防禦',10],['特攻',20],['特防',25],['速度',15]];
+const NATURES=[['勤奮','Hardy','能力無修正'],['怕寂寞','Lonely','↑攻擊 ↓防禦'],['勇敢','Brave','↑攻擊 ↓速度'],['固執','Adamant','↑攻擊 ↓特攻'],['頑皮','Naughty','↑攻擊 ↓特防'],['大膽','Bold','↑防禦 ↓攻擊'],['坦率','Docile','能力無修正'],['悠閒','Relaxed','↑防禦 ↓速度'],['淘氣','Impish','↑防禦 ↓特攻'],['樂天','Lax','↑防禦 ↓特防'],['膽小','Timid','↑速度 ↓攻擊'],['急躁','Hasty','↑速度 ↓防禦'],['認真','Serious','能力無修正'],['爽朗','Jolly','↑速度 ↓特攻'],['天真','Naive','↑速度 ↓特防'],['內斂','Modest','↑特攻 ↓攻擊'],['慢吞吞','Mild','↑特攻 ↓防禦'],['冷靜','Quiet','↑特攻 ↓速度'],['害羞','Bashful','能力無修正'],['馬虎','Rash','↑特攻 ↓特防'],['溫和','Calm','↑特防 ↓攻擊'],['溫順','Gentle','↑特防 ↓防禦'],['自大','Sassy','↑特防 ↓速度'],['慎重','Careful','↑特防 ↓特攻'],['浮躁','Quirky','能力無修正']];
+const localNames={80:['呆殼獸','Slowbro'],97:['引夢貘人','Hypno'],164:['貓頭夜鷹','Noctowl'],203:['麒麟奇','Girafarig'],450:['河馬獸','Hippowdon'],160:['大力鱷','Feraligatr']};
+let speciesNames={...localNames};
+let state={raw:null,name:'',generalPart:0,storagePart:0,party:[],boxes:Array.from({length:18},()=>[]),dirty:new Map(),logs:[],tab:'party',box:0,openDetails:new Map()};
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+function escHtml(v){return String(v).replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]));}
+function u16(a,o){return a[o]|(a[o+1]<<8)} function u32(a,o){return (a[o]|(a[o+1]<<8)|(a[o+2]<<16)|(a[o+3]<<24))>>>0}
+function w16(a,o,v){a[o]=v&255;a[o+1]=(v>>>8)&255} function w32(a,o,v){a[o]=v&255;a[o+1]=(v>>>8)&255;a[o+2]=(v>>>16)&255;a[o+3]=(v>>>24)&255}
+function crc16(a,start,len){let c=0xffff;for(let i=start;i<start+len;i++){c^=a[i]<<8;for(let j=0;j<8;j++)c=(c&0x8000)?((c<<1)^0x1021)&0xffff:(c<<1)&0xffff;}return c}
+function blockValid(a,start,size){return crc16(a,start,size-0x10)===u16(a,start+size-2)}
+function footer(a,start,size){let o=start+size-0x14;return {link:u32(a,o),g:u32(a,o+4),size:u32(a,o+8),magic:u32(a,o+12),type:u16(a,o+16),chk:u16(a,o+18),valid:blockValid(a,start,size)}}
+function chooseGeneral(a){let c=[0,PART].map(p=>({p,f:footer(a,p,GS)})).filter(x=>x.f.valid);if(!c.length)throw Error('兩個 general block 的 checksum 都無效');c.sort((x,y)=>y.f.g-x.f.g);return c[0].p}
+function chooseStorage(a,gp){const gf=footer(a,gp,GS);let c=[0,PART].map(p=>({p,f:footer(a,p+SSTART,SS)})).filter(x=>x.f.valid);if(!c.length)throw Error('兩個 storage block 的 checksum 都無效');let match=c.filter(x=>x.f.g===gf.g);if(match.length)c=match;c.sort((x,y)=>(y.f.link-x.f.link)||(y.f.g-x.f.g));return c[0].p}
+function crypt(bytes,seed){let a=new Uint8Array(bytes);for(let i=0;i<a.length;i+=2){seed=(Math.imul(0x41C64E6D,seed)+0x6073)>>>0;let x=(seed>>>16)&0xffff, w=(a[i]|(a[i+1]<<8))^x;a[i]=w&255;a[i+1]=(w>>>8)&255;}return a}
+function shuffleCore(core,sv){let blocks=[];for(let i=0;i<4;i++)blocks.push(core.slice(i*32,(i+1)*32));let perm=[0,1,2,3],slot=[0,1,2,3],sh=BP.slice(sv*4,sv*4+4);for(let i=0;i<3;i++){let desired=sh[i],j=slot[desired];if(j===i)continue;[blocks[i],blocks[j]]=[blocks[j],blocks[i]];let at=perm[i];perm[j]=at;slot[at]=j;}let out=new Uint8Array(128);blocks.forEach((b,i)=>out.set(b,i*32));return out}
+function decryptPK(raw){let d=new Uint8Array(raw),pv=u32(d,0),chk=u16(d,6);d.set(crypt(d.slice(8,136),chk),8);if(d.length>136)d.set(crypt(d.slice(136),pv),136);d.set(shuffleCore(d.slice(8,136),(pv>>>13)&31),8);return d}
+function checksumPK(d){let s=0;for(let i=8;i<136;i+=2)s=(s+u16(d,i))&0xffff;return s}
+function encryptPK(dec){let d=new Uint8Array(dec);w16(d,6,checksumPK(d));let pv=u32(d,0),chk=u16(d,6),sv=(pv>>>13)&31;d.set(shuffleCore(d.slice(8,136),BPI[sv]),8);d.set(crypt(d.slice(8,136),chk),8);if(d.length>136)d.set(crypt(d.slice(136),pv),136);return d}
+const G4INT=[
+'\0','　','ぁ','あ','ぃ','い','ぅ','う','ぇ','え','ぉ','お','か','が','き','ぎ',
+'く','ぐ','け','げ','こ','ご','さ','ざ','し','じ','す','ず','せ','ぜ','そ','ぞ',
+'た','だ','ち','ぢ','っ','つ','づ','て','で','と','ど','な','に','ぬ','ね','の',
+'は','ば','ぱ','ひ','び','ぴ','ふ','ぶ','ぷ','へ','べ','ぺ','ほ','ぼ','ぽ','ま',
+'み','む','め','も','ゃ','や','ゅ','ゆ','ょ','よ','ら','り','る','れ','ろ','わ',
+'を','ん','ァ','ア','ィ','イ','ゥ','ウ','ェ','エ','ォ','オ','カ','ガ','キ','ギ',
+'ク','グ','ケ','ゲ','コ','ゴ','サ','ザ','シ','ジ','ス','ズ','セ','ゼ','ソ','ゾ',
+'タ','ダ','チ','ヂ','ッ','ツ','ヅ','テ','デ','ト','ド','ナ','ニ','ヌ','ネ','ノ',
+'ハ','バ','パ','ヒ','ビ','ピ','フ','ブ','プ','ヘ','ベ','ペ','ホ','ボ','ポ','マ',
+'ミ','ム','メ','モ','ャ','ヤ','ュ','ユ','ョ','ヨ','ラ','リ','ル','レ','ロ','ワ',
+'ヲ','ン','０','１','２','３','４','５','６','７','８','９','Ａ','Ｂ','Ｃ','Ｄ',
+'Ｅ','Ｆ','Ｇ','Ｈ','Ｉ','Ｊ','Ｋ','Ｌ','Ｍ','Ｎ','Ｏ','Ｐ','Ｑ','Ｒ','Ｓ','Ｔ',
+'Ｕ','Ｖ','Ｗ','Ｘ','Ｙ','Ｚ','ａ','ｂ','ｃ','ｄ','ｅ','ｆ','ｇ','ｈ','ｉ','ｊ',
+'ｋ','ｌ','ｍ','ｎ','ｏ','ｐ','ｑ','ｒ','ｓ','ｔ','ｕ','ｖ','ｗ','ｘ','ｙ','ｚ',
+'', '！','？','、','。','…','・','／','「','」','『','』','（','）','♂','♀',
+'＋','ー','×','÷','＝','～','：','；','．','，','♠','♣','♥','♦','★','◎',
+'○','□','△','◇','＠','♪','％','☀','☁','☂','☃','①','②','③','④','⑤',
+'⑥','⑦','円','♈','♉','♊','♋','♌','♍','♎','♏','←','↑','↓','→','►',
+'＆','0','1','2','3','4','5','6','7','8','9','A','B','C','D','E',
+'F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U',
+'V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k',
+'l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','À',
+'Á','Â','Ã','Ä','Å','Æ','Ç','È','É','Ê','Ë','Ì','Í','Î','Ï','Ð',
+'Ñ','Ò','Ó','Ô','Õ','Ö','⑧','Ø','Ù','Ú','Û','Ü','Ý','Þ','ß','à',
+'á','â','ã','ä','å','æ','ç','è','é','ê','ë','ì','í','î','ï','ð',
+'ñ','ò','ó','ô','õ','ö','⑨','ø','ù','ú','û','ü','ý','þ','ÿ','Œ',
+'œ','Ş','ş','ª','º','⑩','⑪','⑫','$','¡','¿','!', '?',',','.','⑬',
+'･','/','‘',"'",'“','”','„','«','»','(',')','♂','♀','+','-','*',
+'#','=','&','~',':',';','⑯','⑰','⑱','⑲','⑳','⑴','⑵','⑶','⑷','⑸',
+'@','⑹','%','⑺','⑻','⑼','⑽','⑾','⑿','⒀','⒁','⒂','⒃','⒄',' ','⒅',
+'⒆','⒇','⒈','⒉','⒊','⒋','⒌','⒍','°','_','＿','⒎','⒏'
+];
+function decodeG4String(d,off,len){let out='';for(let i=0;i<len;i+=2){let v=u16(d,off+i);if(v===0xffff||v===0)break;if(v<G4INT.length){let c=G4INT[v];if(c)out+=c;else out+='�';}else if(v>=0x400&&v<=0xD65){out+='�';}else out+='�';}return out;}
+
+function parseMon(raw,kind,offset,slot,box=-1){let d=decryptPK(raw),sp=u16(d,8),ok=checksumPK(d)===u16(d,6);if(!ok||sp<1||sp>493)return null;let ev=EVDEF.map(x=>d[x[1]]),iv32=u32(d,0x38),iv=IVDEF.map(x=>(iv32>>>x[1])&31),pid=u32(d,0),nature=pid%25,isNicknamed=((iv32>>>31)&1)===1,nickname=isNicknamed?decodeG4String(d,0x48,22):'';return {kind,offset,slot,box,dec:d,species:sp,level:kind==='party'?d[0x8C]:null,ev,iv,pid,nature,isNicknamed,nickname}}
+function parseAll(){let a=state.raw,g=state.generalPart, s=state.storagePart+SSTART;let count=Math.min(a[g+0x94],6);state.party=[];for(let i=0;i<count;i++){let o=g+PARTY+i*PSIZE,m=parseMon(a.slice(o,o+PSIZE),'party',o,i);if(m)state.party.push(m)}state.boxes=Array.from({length:18},()=>[]);for(let b=0;b<18;b++)for(let i=0;i<30;i++){let o=s+b*0x1000+i*STORED,m=parseMon(a.slice(o,o+STORED),'box',o,i,b);if(m)state.boxes[b].push(m)}}
+function validateSave(a){if(a.length!==0x80000)throw Error(`檔案大小是 ${a.length} bytes；HGSS 原始存檔應為 524288 bytes (512 KB)`);let mags=[];for(let p of [0,PART])mags.push(footer(a,p,GS).magic);if(!mags.some(x=>x===0x20060623||x===0x20070903))throw Error('找不到 Gen IV HGSS footer magic，可能不是 HGSS 原始存檔');}
+async function loadNames(){try{let [en,zh]=await Promise.all([fetch('https://raw.githubusercontent.com/sindresorhus/pokemon/main/data/en.json').then(r=>r.json()),fetch('https://raw.githubusercontent.com/sindresorhus/pokemon/main/data/zh-hant.json').then(r=>r.json())]);for(let i=0;i<493;i++)speciesNames[i+1]=[zh[i],en[i]];render()}catch(e){}}
+function monLabel(m){let n=speciesNames[m.species],base=n?`${n[0]} <span class="meta">${n[1]}</span>`:`#${String(m.species).padStart(3,'0')}`;return base+(m.nickname?` <span class="nickname">「${escHtml(m.nickname)}」</span>`:'')}
+function key(m){return `${m.kind}:${m.offset}`}
+function editOf(m){let k=key(m),x=state.dirty.get(k);if(!x){x={m,ev:[...m.ev],iv:[...m.iv],nature:m.nature,pid:m.pid};state.dirty.set(k,x)}return x}
+function currentEV(m){let x=state.dirty.get(key(m));return x?[...x.ev]:[...m.ev]}
+function currentIV(m){let x=state.dirty.get(key(m));return x?[...x.iv]:[...m.iv]}
+function currentNature(m){let x=state.dirty.get(key(m));return x?x.nature:m.nature}
+function detailOpen(m,type){let x=state.openDetails.get(key(m));return !!(x&&x[type])}
+function toggleDetail(m,type){let k=key(m),x=state.openDetails.get(k)||{iv:false,ev:false};x={...x,[type]:!x[type]};state.openDetails.set(k,x);renderCards()}
+function isShinyPID(d,pid){let tid=u16(d,0x0C),sid=u16(d,0x0E),lo=pid&0xffff,hi=(pid>>>16)&0xffff;return ((tid^sid^lo^hi)&0xffff)<8}
+function pidForNature(m,target){let orig=m.pid>>>0;if(orig%25===target)return orig;let wantShiny=isShinyPID(m.dec,orig),q0=-1;for(let q=0;q<25;q++){let c=(orig+256*q)>>>0;if(c%25===target){q0=q;break}}if(q0<0)throw Error('無法計算個性 PID');for(let t=0;t<250000;t++){let q=q0+25*t,c=(orig+256*q)>>>0;if((c&255)!==(orig&255))continue;if(isShinyPID(m.dec,c)===wantShiny)return c}throw Error('找不到能維持閃光狀態的 PID')}
+function record(m,idx,from,to){if(from===to)return;let n=speciesNames[m.species]?.[0]||`#${m.species}`,where=m.kind==='party'?`隊伍 ${m.slot+1}`:`盒子 ${m.box+1}-${m.slot+1}`;state.logs.unshift({t:new Date(),text:`${where} ${n}：${EVDEF[idx][0]} ${from} → ${to}`});renderLog()}
+function setEV(m,idx,value,recordIt=true){let legal=$('#legal').checked,max=legal?252:255;value=Math.max(0,Math.min(max,Number.isFinite(+value)?Math.trunc(+value):0));let k=key(m), cur=editOf(m),old=cur.ev[idx];if(legal){let other=cur.ev.reduce((s,v,i)=>s+(i===idx?0:v),0);value=Math.min(value,Math.max(0,510-other));}cur.ev[idx]=value;state.dirty.set(k,cur);if(recordIt)record(m,idx,old,value);renderCards();updateExportState()}
+function setIV(m,idx,value,recordIt=true){value=Math.max(0,Math.min(31,Number.isFinite(+value)?Math.trunc(+value):0));let cur=editOf(m),old=cur.iv[idx];cur.iv[idx]=value;state.dirty.set(key(m),cur);if(recordIt&&old!==value){let n=speciesNames[m.species]?.[0]||`#${m.species}`,where=m.kind==='party'?`隊伍 ${m.slot+1}`:`盒子 ${m.box+1}-${m.slot+1}`;state.logs.unshift({t:new Date(),text:`${where} ${n}：IV ${IVDEF[idx][0]} ${old} → ${value}`});renderLog()}renderCards();updateExportState()}
+function presetIV(m,val){let cur=editOf(m),old=cur.iv.join('/');cur.iv=Array(6).fill(val);state.dirty.set(key(m),cur);let n=speciesNames[m.species]?.[0]||`#${m.species}`,where=m.kind==='party'?`隊伍 ${m.slot+1}`:`盒子 ${m.box+1}-${m.slot+1}`;state.logs.unshift({t:new Date(),text:`${where} ${n}：IV ${old} → ${cur.iv.join('/')}`});renderLog();renderCards();updateExportState()}
+function setNature(m,target){target=Math.max(0,Math.min(24,Math.trunc(+target)));let cur=editOf(m),old=cur.nature;if(old===target)return;let pid=pidForNature(m,target);cur.nature=target;cur.pid=pid;state.dirty.set(key(m),cur);let n=speciesNames[m.species]?.[0]||`#${m.species}`,where=m.kind==='party'?`隊伍 ${m.slot+1}`:`盒子 ${m.box+1}-${m.slot+1}`;state.logs.unshift({t:new Date(),text:`${where} ${n}：個性 ${NATURES[old][0]} → ${NATURES[target][0]}`});renderLog();renderCards();updateExportState()}
+
+function preset(m,vals){vals.forEach((v,i)=>setEV(m,i,v,false));let n=speciesNames[m.species]?.[0]||`#${m.species}`;state.logs.unshift({t:new Date(),text:`${m.kind==='party'?`隊伍 ${m.slot+1}`:`盒子 ${m.box+1}-${m.slot+1}`} ${n}：套用 EV 預設 ${vals.join('/')}`});renderLog();renderCards();updateExportState()}
+function renderCards(){let list=state.tab==='party'?state.party:state.boxes[state.box];let el=$('#cards');if(!list.length){el.innerHTML='<div class="empty">這裡沒有可辨識的寶可夢。</div>';return}el.innerHTML=list.map(m=>{let ev=currentEV(m),iv=currentIV(m),nature=currentNature(m),total=ev.reduce((a,b)=>a+b,0),dirty=state.dirty.has(key(m)),nat=NATURES[nature],ivOpen=detailOpen(m,'iv'),evOpen=detailOpen(m,'ev');return `<article class="card ${dirty?'dirty':''}" data-key="${key(m)}"><div class="monhead"><div><div class="monname">${monLabel(m)}</div><div class="meta">#${String(m.species).padStart(3,'0')} · ${m.kind==='party'?`Lv.${m.level} · 隊伍第 ${m.slot+1} 隻`:`盒子 ${m.box+1} · 格 ${m.slot+1}`}</div></div>${dirty?'<span class="badge">已修改</span>':''}</div>
+<div class="editsection"><div class="sectiontitle">個性 Nature</div><div class="natureline"><select data-nature>${NATURES.map((x,i)=>`<option value="${i}" ${i===nature?'selected':''}>${x[0]} · ${x[1]} · ${x[2]}</option>`).join('')}</select><div class="meta">目前：${nat[0]}（${nat[1]}）· ${nat[2]}</div></div></div>
+<div class="detailbuttons"><button class="togglebtn ${ivOpen?'active':''}" data-toggle="iv">個體質</button><button class="togglebtn ${evOpen?'active':''}" data-toggle="ev">努力值</button></div>
+${ivOpen?`<div class="detailpanel"><div class="sectiontitle">個體值 IV</div><div class="ivgrid">${IVDEF.map((e,i)=>`<div class="ivbox"><label>${e[0]}</label><div class="ivline"><input inputmode="numeric" type="number" min="0" max="31" value="${iv[i]}" data-ividx="${i}"><button class="mini set31" data-ividx="${i}">31</button></div></div>`).join('')}</div><div class="presets"><button data-ivpre="31">6V（全 31）</button><button data-ivpre="0">全 0</button></div></div>`:''}
+${evOpen?`<div class="detailpanel"><div class="sectiontitle">努力值 EV</div><div class="evgrid">${EVDEF.map((e,i)=>`<div class="evbox"><label>${e[0]}</label><div class="evline"><input inputmode="numeric" type="number" min="0" max="${$('#legal').checked?252:255}" value="${ev[i]}" data-idx="${i}"><button class="mini set252" data-idx="${i}">252</button></div></div>`).join('')}</div><div class="total ${total>510?'bad':'good'}">EV 總和：<b>${total}</b> / 510${total>510?'　⚠ 超過一般合法上限':''}</div><div class="presets"><button data-pre="zero">全清 0</button><button data-pre="atkspd">物攻＋速度</button><button data-pre="spaspd">特攻＋速度</button><button data-pre="hpatk">HP＋物攻</button><button data-pre="hpspa">HP＋特攻</button>${dirty?'<button data-pre="undo" class="danger">還原此隻</button>':''}</div></div>`:''}</article>`}).join('');
+ el.querySelectorAll('.card').forEach(card=>{let m=findMon(card.dataset.key);card.querySelectorAll('[data-toggle]').forEach(b=>b.addEventListener('click',()=>toggleDetail(m,b.dataset.toggle)));let nat=card.querySelector('[data-nature]');if(nat)nat.addEventListener('change',e=>setNature(m,+e.target.value));card.querySelectorAll('input[data-ividx]').forEach(inp=>inp.addEventListener('change',()=>setIV(m,+inp.dataset.ividx,inp.value)));card.querySelectorAll('.set31').forEach(b=>b.addEventListener('click',()=>setIV(m,+b.dataset.ividx,31)));card.querySelectorAll('[data-ivpre]').forEach(b=>b.addEventListener('click',()=>presetIV(m,+b.dataset.ivpre)));card.querySelectorAll('input[data-idx]').forEach(inp=>inp.addEventListener('change',()=>setEV(m,+inp.dataset.idx,inp.value)));card.querySelectorAll('.set252').forEach(b=>b.addEventListener('click',()=>setEV(m,+b.dataset.idx,252)));card.querySelectorAll('[data-pre]').forEach(b=>b.addEventListener('click',()=>{let p=b.dataset.pre;if(p==='zero')preset(m,[0,0,0,0,0,0]);if(p==='atkspd')preset(m,[6,252,0,0,0,252]);if(p==='spaspd')preset(m,[6,0,0,252,0,252]);if(p==='hpatk')preset(m,[252,252,0,0,0,6]);if(p==='hpspa')preset(m,[252,0,0,252,0,6]);if(p==='undo'){state.dirty.delete(key(m));state.logs.unshift({t:new Date(),text:`已還原 ${speciesNames[m.species]?.[0]||'#'+m.species}`});renderLog();renderCards();updateExportState()}}))})}
+function findMon(k){return [...state.party,...state.boxes.flat()].find(m=>key(m)===k)}
+function render(){if(!state.raw)return;$$('.tab').forEach(x=>x.classList.toggle('active',x.dataset.tab===state.tab));$('#boxbar').hidden=state.tab!=='box';if(state.tab==='box')$('#boxCount').textContent=`${state.boxes[state.box].length} 隻`;renderCards();renderLog();}
+function renderLog(){let el=$('#log');if(!state.logs.length){el.innerHTML='<div class="empty">尚未修改</div>';return}el.innerHTML=state.logs.map(x=>`<div class="logitem"><span class="time">${x.t.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}</span>${x.text}</div>`).join('')}
+function updateExportState(){$('#export').disabled=!state.raw||state.dirty.size===0}
+function toast(s){let t=$('#toast');t.textContent=s;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
+function download(bytes,name){let blob=new Blob([bytes],{type:'application/octet-stream'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),3000)}
+function makeOutput(){let out=new Uint8Array(state.raw);for(let {m,ev,iv,pid} of state.dirty.values()){let d=new Uint8Array(m.dec);EVDEF.forEach((e,i)=>d[e[1]]=ev[i]);let iv32=u32(d,0x38)&0xC0000000;IVDEF.forEach((e,i)=>iv32|=(iv[i]&31)<<e[1]);w32(d,0x38,iv32>>>0);w32(d,0,pid>>>0);let enc=encryptPK(d);out.set(enc,m.offset)}let generalTouched=[...state.dirty.values()].some(x=>x.m.kind==='party'),storageTouched=[...state.dirty.values()].some(x=>x.m.kind==='box');if(generalTouched){let start=state.generalPart,chk=crc16(out,start,GS-0x10);w16(out,start+GS-2,chk)}if(storageTouched){let start=state.storagePart+SSTART,chk=crc16(out,start,SS-0x10);w16(out,start+SS-2,chk)}return out}
+function verifyOutput(out){validateSave(out);let gp=chooseGeneral(out),sp=chooseStorage(out,gp);if(gp!==state.generalPart)throw Error('驗證後 active general block 改變');for(let {m,ev,iv,nature,pid} of state.dirty.values()){let len=m.kind==='party'?PSIZE:STORED,d=decryptPK(out.slice(m.offset,m.offset+len));if(checksumPK(d)!==u16(d,6))throw Error('Pokémon checksum 驗證失敗');for(let i=0;i<6;i++)if(d[EVDEF[i][1]]!==ev[i])throw Error('EV 回讀驗證失敗');let iv32=u32(d,0x38);for(let i=0;i<6;i++)if(((iv32>>>IVDEF[i][1])&31)!==iv[i])throw Error('IV 回讀驗證失敗');if(u32(d,0)!==(pid>>>0)||u32(d,0)%25!==nature)throw Error('個性／PID 回讀驗證失敗')}return {gp,sp}}
+function readFileBytes(f){return new Promise((resolve,reject)=>{let r=new FileReader();r.onload=()=>resolve(new Uint8Array(r.result));r.onerror=()=>reject(r.error||new Error('iOS 無法讀取這個檔案'));r.readAsArrayBuffer(f)})}
+$('#file').addEventListener('change',async e=>{let f=e.target.files&&e.target.files[0];if(!f)return;$('#status').className='status warn';$('#status').textContent='正在讀取 '+f.name+'…';try{let a=await readFileBytes(f);validateSave(a);state={raw:a,name:f.name,generalPart:chooseGeneral(a),storagePart:0,party:[],boxes:Array.from({length:18},()=>[]),dirty:new Map(),logs:[],tab:'party',box:0,openDetails:new Map()};state.storagePart=chooseStorage(a,state.generalPart);parseAll();$('#status').className='status good';$('#status').textContent=`已載入 ${f.name} · 最新 general ${state.generalPart?2:1} · storage ${state.storagePart?2:1} · 隊伍 ${state.party.length} 隻`;$('#editorPanel').hidden=false;$('#logPanel').hidden=false;$('#backup').disabled=false;$('#export').disabled=true;let sel=$('#boxSelect');sel.innerHTML=Array.from({length:18},(_,i)=>`<option value="${i}">盒子 ${i+1}</option>`).join('');render();loadNames();}catch(err){console.error(err);$('#status').className='status bad';$('#status').textContent='無法載入：'+err.message;toast('存檔辨識失敗')}})
+$('#backup').addEventListener('click',()=>download(state.raw,state.name.replace(/(\.[^.]+)?$/, '_BACKUP$1')))
+$('#export').addEventListener('click',()=>{try{let out=makeOutput();verifyOutput(out);let dot=state.name.lastIndexOf('.'),name=dot>=0?state.name.slice(0,dot)+'_SAKAKI_EDITED'+state.name.slice(dot):state.name+'_SAKAKI_EDITED.dsv';download(out,name);$('#status').className='status good';$('#status').textContent=`修改檔已產生並通過回讀驗證（${state.dirty.size} 隻寶可夢）`;toast('修改檔驗證成功')}catch(err){console.error(err);$('#status').className='status bad';$('#status').textContent='匯出驗證失敗：'+err.message;toast('匯出失敗')}})
+$$('.tab').forEach(b=>b.addEventListener('click',()=>{state.tab=b.dataset.tab;render()}));$('#boxSelect').addEventListener('change',e=>{state.box=+e.target.value;render()});$('#legal').addEventListener('change',()=>{if($('#legal').checked){for(let d of state.dirty.values()){let ev=d.ev.map(x=>Math.min(252,x)),total=ev.reduce((a,b)=>a+b,0);if(total>510){let over=total-510;for(let i=5;i>=0&&over>0;i--){let cut=Math.min(over,ev[i]);ev[i]-=cut;over-=cut}}d.ev=ev}}renderCards();updateExportState()});$('#clearLog').addEventListener('click',()=>{state.logs=[];renderLog()});
+const hint=$('#envHint');
+if(location.protocol==='file:'){hint.hidden=false;hint.textContent='目前是本機 HTML 模式。若你是在 ChatGPT／「檔案」App 的預覽視窗中開啟，iOS 可能會封鎖選檔；這不是存檔格式問題。請用 Safari 的 HTTPS/PWA 版本。';}
+$('#file').addEventListener('click',()=>{console.log('native file input tapped')});
+if('serviceWorker' in navigator && location.protocol.startsWith('http')){navigator.serviceWorker.register('./sw.js').catch(()=>{});}
+</script>
+</body></html>
